@@ -41,13 +41,45 @@ namespace Entities
 
             context.Procedures.AddRange(procedures);
 
-            Pacient[] pacients = new []
+            Pacient[] pacients = new[]
             {
-                new Pacient(){Doctor = doctors[1], DoctorProcedure = procedures[1], Comment = "123", Name = "Name1",Email = "1@mail.com", RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))},
-                new Pacient(){Doctor = doctors[2], DoctorProcedure = procedures[2], Comment = "123", Name = "Name2",Email = "2@mail.com", RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))},
-                new Pacient(){Doctor = doctors[3], DoctorProcedure = procedures[3], Comment = "123", Name = "Name3",Email = "3@mail.com", RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))},
-                new Pacient(){Doctor = doctors[1], DoctorProcedure = procedures[3], Comment = "123", Name = "Name4",Email = "4@mail.com", RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))},
-            }
+                new Pacient()
+                {
+                    Doctor = doctors[1],
+                    DoctorProcedure = procedures[1],
+                    Comment = "123",
+                    Name = "Name1",
+                    Email = "1@mail.com",
+                    RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))
+                },
+                new Pacient()
+                {
+                    Doctor = doctors[2],
+                    DoctorProcedure = procedures[2],
+                    Comment = "123",
+                    Name = "Name2",
+                    Email = "2@mail.com",
+                    RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))
+                },
+                new Pacient()
+                {
+                    Doctor = doctors[3],
+                    DoctorProcedure = procedures[3],
+                    Comment = "123",
+                    Name = "Name3",
+                    Email = "3@mail.com",
+                    RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))
+                },
+                new Pacient()
+                {
+                    Doctor = doctors[1],
+                    DoctorProcedure = procedures[3],
+                    Comment = "123",
+                    Name = "Name4",
+                    Email = "4@mail.com",
+                    RegTime = DateTime.Now.AddDays(random.Next(2)).AddHours(random.Next(24))
+                },
+            };
             context.Pacients.AddRange();
 
             context.SaveChanges();
