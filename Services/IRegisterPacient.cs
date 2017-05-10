@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Shared.DTO;
 
 namespace Services
 {
@@ -8,5 +9,6 @@ namespace Services
         List<KeyValuePair<int, string>> GetAllDoctors();
         List<KeyValuePair<int, string>> GetProcedures();
         bool ValidateDate(int docId, DateTime dateTime);
+        void Register(RegisterModel model);
     }
 }

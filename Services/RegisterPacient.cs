@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities;
 using Entities.Entities;
 using Repository.Interfaces;
+using Shared.DTO;
 
 namespace Services
 {
@@ -46,6 +48,29 @@ namespace Services
                 select pacient.Id).Any();
 
             return !res;
+        }
+
+        public void Register(RegisterModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SavePacientsRequest(RegisterModel model)
+        {
+            var pacient = new Pacient()
+            {
+                DoctorId = model.SelectedDoctor,
+                Comment = model.Comment,
+                Email = model.Email,
+                Phone = model.Phone,
+                DoctorProcedureId = model.SelectedProcedure,
+                Name = model.Name,
+                RegTime = model.SelectedTime,
+                ObjectState = ObjectState.Added,
+            };
+
+            _pacients.Insert(pacient);
+            _pacients.Save();
         }
 
     }
