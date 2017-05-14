@@ -1,0 +1,31 @@
+@model Shared.DTO.AdminResultModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Admin</h2>
+  @Html.Partial("_searchManage")
+
+<div class="row">
+   @(Html
+    .Grid(Model.gridModel)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Procedure).Titled("Procedure").Filterable(true);
+        columns.Add(model => model.DoctorName).Titled("Doctor").Filterable(true);
+        columns.Add(model => model.Time).Titled("Time");
+        columns.Add(model => model.PacentName).Titled("Pacent name").Filterable(true);
+        columns.Add(model => model.PacentEmail).Titled("Pacent email").Filterable(true);
+        columns.Add(model => model.PacentPhone).Titled("Pacent phone").Filterable(true);
+        columns.Add(model => model.PacentComment).Titled("Comment").Filterable(true);
+
+    })
+    .Filterable()
+    .Sortable()
+    .Pageable()
+)
+
+
+</div>

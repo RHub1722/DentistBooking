@@ -6,11 +6,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Entities.Entities;
 using Entities.Interfaces;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entities
 {
-    public class EFContext : DbContext, IDataContextAsync
+    public class EFContext : IdentityDbContext<ApplicationUser>, IDataContextAsync
     {
         public EFContext(DbContextOptions<EFContext> options) : base(options)
         {

@@ -1,16 +1,24 @@
 ﻿@model Shared.DTO.RegisterModel
 @using Shared.DTO
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dentis register";
+    Layout = "_Layout";
 }
 
 @using (Html.BeginForm())
 {
-    <div align="center" style="width: 640px; margin-top: 10px; background: bisque">
-        <div class="row">
-            <div class="col-md-4">
-                <p align="right" style="margin-top: 5px; text-align: right">Choose a procedure:</p>
+    <h2 style="color: red">@Html.ValidationMessage("er")</h2>
+    if (ViewBag.IsOk != null && ViewBag.IsOk == true)
+    {
+        <h2 style="color: green">Registration is complete!</h2>
+    }
+    <div align="center" style="width: 640px; margin-top: 10px; background: bisque" class="form-horizontal">
+        <hr/>
+        <div class="form-group">
+            <div class="col-md-4" >
+                <p align="right" style="margin-top: 5px; text-align: right">Choose a procedure:</p>                
             </div>
+             
             <div class="col-md-4" align="left">
                 @Html.DropDownListFor(x => x.SelectedProcedure, new MultiSelectList(Model.Procedures, "Key", "Value"), new {@class = "form-control"})
             </div>
@@ -19,74 +27,71 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Choose a Doctor:</p>
+            </div>
+            <div class="col-md-4" align="left">
+                @Html.DropDownListFor(x => x.SelectedDoctor, new MultiSelectList(Model.Doctors, "Key", "Value"), new {@class = "form-control"})
+            </div>
+            <div lass="col-md-1" align="left" style="margin-top: 5px">
+                <a href="#" data-toggle="tooltip" title="Hooray!">Help</a>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <p align="right" style="margin-top: 5px; text-align: right">Choose a Doctor:</p>
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Check doctor availabily:</p>
+            </div>
+            <div class='col-md-4' align="left">
+                <input id="SelectedDate" name="SelDate" size="16" type="text" value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" readonly class="form_datetime form-control">
+            </div>
+            <div lass="col-md-1" align="left" style="margin-top: 5px">
+                <a href="#" data-toggle="tooltip" title="Hooray!">Help</a>
+            </div>
         </div>
-        <div class="col-md-4" align="left">
-            @Html.DropDownListFor(x => x.SelectedDoctor, new MultiSelectList(Model.Doctors, "Key", "Value"), new {@class = "form-control"})
-        </div>
-        <div lass="col-md-1" align="left" style="margin-top: 5px">
-            <a href="#" data-toggle="tooltip" title="Hooray!">Help</a>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <p align="right" style="margin-top: 5px; text-align: right">Check doctor availabily:</p>
+        <div class="form-group">
+            <div class="col-md-12">
+                <hr>
+            </div>
         </div>
-        <div class='col-md-4' align="left">
-            <input id="SelectedDate" name="SelDate" size="16" type="text" value="2017-05-15 14:45" readonly class="form_datetime form-control">
-        </div>
-        <div lass="col-md-1" align="left" style="margin-top: 5px">
-            <a href="#" data-toggle="tooltip" title="Hooray!">Help</a>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <hr>
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Your name, surname:</p>
+            </div>
+            <div class='col-md-4' align="left">
+                @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Your phone number:</p>
+            </div>
+            <div class='col-md-4' align="left">
+                @Html.TextBoxFor(m => m.Phone, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Your email:</p>
+            </div>
+            <div class='col-md-4' align="left">
+                @Html.TextBoxFor(m => m.Email, new {@class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group" style="height: 100px">
+            <div class="col-md-4"></div>
+            <div class='col-md-4' align="left">
+                @Html.TextBoxFor(m => m.Comment, new {@class = "form-control", style = "height: 100px"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class='col-md-offset-4 col-md-4' align="left"  >
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <p align="right" style="margin-top: 5px; text-align: right">Your name, surname:</p>
-        </div>
-        <div class='col-md-4' align="left">
-             @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <p align="right" style="margin-top: 5px; text-align: right">Your phone number:</p>
-        </div>
-        <div class='col-md-4' align="left">
-            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <p align="right" style="margin-top: 5px; text-align: right">Your email:</p>
-        </div>
-        <div class='col-md-4' align="left">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="row" style="height: 100px">
-        <div class="col-md-4"></div>
-        <div class='col-md-4' align="left">
-            @Html.TextBoxFor(m => m.Comment, new { @class = "form-control", style = "height: 100px" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class='col-md-4' align="right">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    </div>
-  </div>
 }
 

@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B4B3DDC7-C968-456A-B84E-7CCB15AA2FF5}</ProjectGuid>
+    <ProjectGuid>{39419702-EB08-4FC6-A5E8-6A19D992E858}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Services</RootNamespace>
@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,15 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{386F11D8-13EC-4D34-9405-A96E7D6DB426}</Project>
+      <Project>{5FF95D03-C42C-47D6-A93E-E7AF9CC9FA68}</Project>
       <Name>Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.csproj">
-      <Project>{12D65D58-DB83-401B-9400-E0369327BDC0}</Project>
+      <Project>{6E1467BA-F955-4F68-8DC3-EBA9F65AA314}</Project>
       <Name>Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
-      <Project>{F1DFB313-00CD-4FD2-99D6-7879336A695E}</Project>
+      <Project>{EDABC896-5843-4AE1-9758-5F52DF696F5C}</Project>
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>

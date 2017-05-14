@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Entities.Interfaces
 {
-    public interface IDataContext
+    public interface IDataContext: IDisposable
     {
         int SaveChanges();
     }

@@ -1,0 +1,52 @@
+﻿@using System.Collections.Generic
+@using Entities.Entities
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@using Microsoft.AspNetCore.Identity
+@using Shared.DTO
+@model LoginModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+
+@using (Html.BeginForm("Login", "Account"))
+{
+    <h2 style="color: red">@Html.ValidationMessage("NotAuth")</h2>
+    <div class="form-horizontal" style="width: 640px; margin-top: 10px; background: bisque">
+        <hr/>
+        
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">User Name:</p>               
+            </div>
+            <div class="col-md-4">
+                <input asp-for="UserName" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                <p align="right" style="margin-top: 5px; text-align: right">Password:</p>               
+            </div>
+            <div class="col-md-4">
+                <input asp-for="Password" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-4">
+                <input type="submit" value="Login" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+ 
+
+
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

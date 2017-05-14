@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Shared.DTO
 {
@@ -13,12 +10,13 @@ namespace Shared.DTO
         public int SelectedDoctor { get; set; }
         public DateTime SelectedTime { get; set; }
 
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
         public string Name { get; set; }
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
         public string Phone { get; set; }
 
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [System.ComponentModel.DataAnnotations.Required]
+        [EmailAddress(ErrorMessage = "Invalid UserName Address")]
         public string Email { get; set; }
         public string Comment { get; set; }
         public List<KeyValuePair<int, string>> Doctors { get; set; }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using Entities;
@@ -41,10 +43,12 @@ namespace Services
 
         public bool ValidateDate(int docId, DateTime dateTime)
         {
+            var fromM = dateTime.AddMinutes(-30);
             var addMinutes = dateTime.AddMinutes(30);
+
             var res = (from pacient in _pacients.Queryable()
                 join doctor in _doctors.Queryable() on pacient.DoctorId equals doctor.Id
-                where doctor.Id == docId && pacient.RegTime > dateTime && pacient.RegTime < addMinutes
+                where doctor.Id == docId && pacient.RegTime > fromM && pacient.RegTime < addMinutes
                 select pacient.Id).Any();
 
             return !res;
@@ -52,26 +56,49 @@ namespace Services
 
         public void Register(RegisterModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SavePacientsRequest(RegisterModel model)
-        {
             var pacient = new Pacient()
             {
                 DoctorId = model.SelectedDoctor,
+                DoctorProcedureId = model.SelectedProcedure,
                 Comment = model.Comment,
                 Email = model.Email,
-                Phone = model.Phone,
-                DoctorProcedureId = model.SelectedProcedure,
                 Name = model.Name,
+                Phone = model.Phone,
                 RegTime = model.SelectedTime,
-                ObjectState = ObjectState.Added,
+                ObjectState = ObjectState.Added
             };
-
             _pacients.Insert(pacient);
             _pacients.Save();
         }
 
+        public List<ResultListModel> GetAllRegisterProcedures(string doc, string proc, string user)
+        {
+            var resp = (from docs in _doctors.Queryable()
+                join pacient in _pacients.Queryable() on docs.Id equals pacient.DoctorId
+                join procedure in _procedures.Queryable() on pacient.DoctorProcedureId equals procedure.Id
+                select new ResultListModel()
+                {
+                    Procedure = procedure.Type,
+                    PacentName = pacient.Name,
+                    DoctorName = docs.FirstName + " " + docs.SecondName,
+                    PacentComment = pacient.Comment,
+                    PacentEmail = pacient.Email,
+                    PacentPhone = pacient.Phone,
+                    Time = pacient.RegTime
+                });
+
+            if (!string.IsNullOrEmpty(doc))
+                resp = resp.Where(x => x.DoctorName.Contains(doc));
+
+            if (!string.IsNullOrEmpty(user))
+                resp = resp.Where(x => x.PacentName.Contains(user));
+
+            if (!string.IsNullOrEmpty(proc))
+                resp = resp.Where(x => x.Procedure.Contains(proc));
+
+            return resp.ToList();
+
+
+        }
     }
 }

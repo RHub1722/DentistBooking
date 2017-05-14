@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Shared.DTO;
@@ -28,6 +29,7 @@ namespace DentistBooking.Controllers
                 Procedures = procedures
 
             };
+            TempData.Put("RegMNodel", registerModel);
             return View(registerModel);
         }
 
@@ -35,35 +37,40 @@ namespace DentistBooking.Controllers
         public IActionResult Index(RegisterModel model)
         {
             model.SelectedTime = DateTime.Parse(Request.Form["SelDate"].ToString());
-            if (_registerPacient.ValidateDate(model.SelectedDoctor, model.SelectedTime))
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("er", "Not all required field is complete");
+            }
+            else if (_registerPacient.ValidateDate(model.SelectedDoctor, model.SelectedTime))
             {
                 _registerPacient.Register(model);
+                ViewBag.IsOk = true;
             }
             else
             {
-                //todo: return error;
+                ModelState.AddModelError("er", "Date and time is not available");
             }
+    
+            var registerModel = TempData.Get<RegisterModel>("RegMNodel");
+            model.Doctors = registerModel.Doctors;
+            model.Procedures = registerModel.Procedures;
+            TempData.Put("RegMNodel", model);
 
             return View(model);
         }
 
-        public IActionResult About()
+        [HttpGet]
+        [Authorize]
+        public IActionResult Admin(string doc = "", string proc = "", string user = "")
         {
-            ViewData["Message"] = "Your application description page.";
+            AdminResultModel model = new AdminResultModel()
+            {
+                gridModel = _registerPacient.GetAllRegisterProcedures(doc, proc, user)
+            };
 
-            return View();
+
+            return View(model);
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View();
-        }
     }
 }

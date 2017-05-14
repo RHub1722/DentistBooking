@@ -18,8 +18,7 @@ namespace Repository
         {
             _context = context;
 
-            var dbContext = context as DbContext;
-
+            DbContext dbContext = context as DbContext;
             if (dbContext != null)
                 _dbSet = dbContext.Set<TEntity>();
         }

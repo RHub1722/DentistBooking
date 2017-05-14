@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Entities;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
+
 
 namespace Entities
 {
@@ -13,7 +13,7 @@ namespace Entities
     {
         public static void Seed(this IApplicationBuilder app)
         {
-            var context = app.ApplicationServices.GetService<EFContext>();
+            var context = (EFContext) app.ApplicationServices.GetService(typeof(EFContext));//app.ApplicationServices.GetService<EFContext>();
             if (context.Doctors.Any())
                 return;
 
