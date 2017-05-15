@@ -64,7 +64,7 @@ namespace DentistBooking.Controllers
                         if (resultreg.Succeeded)
                         {
                             await _signInManager.SignInAsync(user, isPersistent: false);
-                            return RedirectToLocal(returnUrl);
+                            return RedirectToAction("Index","Home");
                         }
 
                     }
